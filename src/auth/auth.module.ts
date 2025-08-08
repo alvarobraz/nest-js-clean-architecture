@@ -11,9 +11,13 @@ import { Env } from 'src/env'
       inject: [ConfigService],
       global: true,
       useFactory(config: ConfigService<Env, true>) {
+        const privateKey = config.get('JWT_PRIVATE_KEY', { infer: true })
+        const publicKey = config.get('JWT_PUBLIC_KEY', { infer: true })
+
         return {
-          signOptions: { algorithm: 'HS256' },
-          secret: config.get('JWT_SECRET', { infer: true }),
+          signOptions: { algorithm: 'RS512' },
+          privateKey,
+          publicKey,
         }
       },
     }),
