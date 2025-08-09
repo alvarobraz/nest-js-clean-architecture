@@ -1,8 +1,8 @@
 import 'dotenv/config'
 
-import { PrismaClient } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
 import { execSync } from 'node:child_process'
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -25,9 +25,7 @@ beforeAll(async () => {
 
   process.env.DATABASE_URL = databaseURL
 
-  console.log(databaseURL)
-
-  execSync('npx prisma migrate')
+  execSync('npx prisma db push', { stdio: 'inherit' })
 })
 
 afterAll(async () => {
