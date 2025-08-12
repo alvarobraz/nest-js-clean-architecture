@@ -25,7 +25,7 @@ beforeAll(async () => {
 
   process.env.DATABASE_URL = databaseURL
 
-  execSync('npx prisma db push --schema=./src/infra/prisma/schema.prisma', {
+  execSync('npx prisma db push', {
     stdio: 'inherit',
   })
 })
