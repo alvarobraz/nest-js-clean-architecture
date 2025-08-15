@@ -41,21 +41,19 @@ export class PrismaAnswersRepository implements AnswersRepository {
     return answers.map(PrismaAnswerMapper.toDomain)
   }
 
-  async create(answer: Answer): Promise<void> {
+  async save(answer: Answer): Promise<void> {
     const data = PrismaAnswerMapper.toPrisma(answer)
-
-    await this.prisma.answer.create({
+    await this.prisma.answer.update({
+      where: {
+        id: data.id,
+      },
       data,
     })
   }
 
-  async save(answer: Answer): Promise<void> {
+  async create(answer: Answer): Promise<void> {
     const data = PrismaAnswerMapper.toPrisma(answer)
-
-    await this.prisma.answer.update({
-      where: {
-        id: answer.id.toString(),
-      },
+    await this.prisma.answer.create({
       data,
     })
   }
